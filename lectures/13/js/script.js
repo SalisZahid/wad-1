@@ -19,6 +19,13 @@ var questions = [{
         "for",
         "none of the above"],
     correctAnswer : 1
+},{
+    question : "Univiersity name",
+    choices : [ "Comsats",
+        "Lums",
+        "Ucp",
+        "none of the above"],
+    correctAnswer : 3
 }];
 
 var currentQuestion = 0;
@@ -26,12 +33,44 @@ var correctAnswers = 0;
 var quizOver = false;
 displayCurrentQuestion();
 document.getElementById("quiz-message").style.display = 'none';
+
 function displayNext() {
-    /*Write your code here */
+    if(currentQuestion<3) {
+        var b = document.querySelector("input[type=radio]:checked");
+        if (b == null) {
+            var quizmessage = document.getElementById("quiz-message");
+            quizmessage.style.display = "inline"
+            quickmessage.innerText = "select any option";
+            var questionchoiceid=document.getElementById("choice-list");
+            questionchoiceid.innerHTML='';
+        }
+        else
+        {
+            if (b == questions[currentQuestion].correctAnswer) {
+                correctAnswers++;
+            }
+            var questionchoiceid = document.getElementById("choice-list");
+            questionchoiceid.innerHTML = '';
+            currentQuestion++;
+        }
+        displayCurrentQuestion();
+    }
+    else
+    {
+        displayScore();
+
+
+    }
 }
 
 function displayCurrentQuestion() {
-    /*Write your code here */
+    var quizQid=document.getElementById("question");
+    var questionchoiceid=document.getElementById("choice-list");
+    quizQid.innerHTML='<p>'+questions[currentQuestion].question + '</p>';
+    for (var i=0;i<questions[currentQuestion].choices.length;i++)
+    {
+        questionchoiceid.innerHTML+='<input type="radio" name="checked">'+questions[currentQuestion].choices[i] + '<br>';
+    }
 }
 
 function resetQuiz() {
@@ -40,7 +79,7 @@ function resetQuiz() {
     hideScore();
 }
 function displayScore() {
-    document.getElementById("result").innerHTML = "you scored: " + correctAnswers + " out of: " + questions.length;
+    document.getElementById("result").innerHTML = "You scored: " + correctAnswers + " out of: " + questions.length;
     document.getElementById("result").style.display = 'block';
 }
 function hideScore() {
