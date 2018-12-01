@@ -85,3 +85,7 @@ function displayScore() {
 function hideScore() {
     document.getElementById("result").style.display = 'none';
 }
+
+function resetbtn() {
+    document.getElementById("reset").style.display = 'none';
+}
